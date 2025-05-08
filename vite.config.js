@@ -8,7 +8,6 @@ export default defineConfig({
     registerType: 'prompt',
     injectRegister: false,
     scope: '/boxing-pwa/',
-    URL: '/boxing-pwa/',
     pwaAssets: {
       disabled: false,
       config: true,
@@ -34,4 +33,5 @@ export default defineConfig({
       type: 'module',
     },
   })],
+  base: '/boxing-pwa',
 })
