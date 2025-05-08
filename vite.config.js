@@ -7,7 +7,8 @@ export default defineConfig({
   plugins: [vue(), VitePWA({
     registerType: 'prompt',
     injectRegister: false,
-
+    scope: '/boxing-pwa/',
+    URL: '/boxing-pwa/',
     pwaAssets: {
       disabled: false,
       config: true,
