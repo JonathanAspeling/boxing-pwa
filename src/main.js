@@ -1,6 +1,6 @@
-import {createApp} from 'vue'
-import './style.css'
-import App from './App.vue'
+import { createApp } from 'vue';
+import './style.css';
+import App from './App.vue';
 import PrimeVue from 'primevue/config';
 
 // TODO: Remove unused themes - keepig them for now to be able to easily switch for final decision
@@ -10,10 +10,12 @@ import Lara from '@primeuix/themes/lara';
 import Nora from '@primeuix/themes/nora';
 
 const app = createApp(App);
-app.use(PrimeVue, {    theme: {
-        preset: Material,
-        options: {
-            darkModeSelector: false || 'none',
-        }
-    }});
+app.use(PrimeVue, {
+  theme: {
+    preset: Material,
+    options: {
+      darkModeSelector: false || 'none',
+    },
+  },
+});
 app.mount('#app');
