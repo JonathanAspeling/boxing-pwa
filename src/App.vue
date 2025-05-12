@@ -1,6 +1,5 @@
 <script setup>
-import { default as PrimeButton } from 'primevue/button';
-import DatePicker from 'primevue/datepicker';
+import Timer from './components/Timer.vue';
 </script>
 
 <template>
@@ -18,7 +17,7 @@ import DatePicker from 'primevue/datepicker';
       id="main-timer"
       class="flex flex-10/12 justify-center border-2 p-2 text-2xl"
     >
-      <div class="m-auto flex justify-center text-8xl">00:00</div>
+      <Timer />
     </div>
     <div
       id="round-indicator"
