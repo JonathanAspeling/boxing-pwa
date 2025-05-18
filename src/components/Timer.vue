@@ -1,9 +1,8 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { useTimerStore } from '../stores/timerstore'
+import { onMounted } from 'vue'
 
-// Reactive variable for round time in seconds
-const roundTime = ref(180); // Example: 3 minutes (180 seconds)
-const breakTime = ref(30); // Example: 0.5 minute (30 seconds)
+const timerStore = useTimerStore()
 
 // Function to format time as MM:SS
 const formatTime = (seconds) => {
@@ -15,23 +14,22 @@ const formatTime = (seconds) => {
 // Countdown function
 const startCountdown = () => {
   const interval = setInterval(() => {
-    if (roundTime.value > 0) {
-      roundTime.value -= 1;
+    if (timerStore.roundTime > 0) {
+      timerStore.roundTime -= 1;
     } else {
       clearInterval(interval);
     }
   }, 1000);
 };
 
-
 onMounted(() => {
-
+  startCountdown();
 });
 </script>
 
 <template>
   <div class="m-auto flex justify-center text-8xl">
-    {{ formatTime(roundTime) }}
+    {{ formatTime(timerStore.roundTime) }}
   </div>
 </template>
 

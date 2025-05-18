@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
 export const useTimerStore = defineStore('timerstore', () => {
-  const roundTime = ref(0)
+  const roundTime = ref(180)
   const breakTime = ref(0)
 
   function setRoundTime(seconds: number) {
