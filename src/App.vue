@@ -46,10 +46,11 @@ const timerStore = useTimerStore();
         <div class="flex h-full w-full flex-col justify-center">
           <div class="self-center">
             <button
-              class="px-4 py-2 bg-blue-500 text-white rounded"
+              class="hexagon-btn"
               @click="timerStore.toggleTimer"
             >
-              {{ timerStore.isRunning ? 'Stop' : 'Start' }}
+              <i v-if="timerStore.isRunning" class="pi pi-pause" style="color: #fff; font-size: 2.25rem;"></i>
+              <i v-else class="pi pi-play" style="color: #fff; font-size: 2.25rem;"></i>
             </button>
           </div>
         </div>
@@ -60,4 +61,30 @@ const timerStore = useTimerStore();
 
 <style scoped>
 /* Blank canvas */
+.hexagon-btn {
+  width: 180px;
+  height: 180px;
+  background: #000;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border: none;
+  font-size: 2.25rem; /* Increased by 50% from 1.5rem */
+  cursor: pointer;
+  clip-path: polygon(
+    25% 6.7%,
+    75% 6.7%,
+    100% 50%,
+    75% 93.3%,
+    25% 93.3%,
+    0% 50%
+  );
+  transition: background 0.2s;
+  aspect-ratio: 1 / 1;
+}
+.hexagon-btn:active {
+  background: #222;
+}
 </style>
