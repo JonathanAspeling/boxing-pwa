@@ -1,5 +1,8 @@
 <script setup>
 import Timer from './components/Timer.vue';
+import { useTimerStore } from './stores/timerstore';
+
+const timerStore = useTimerStore();
 </script>
 
 <template>
@@ -41,7 +44,14 @@ import Timer from './components/Timer.vue';
           <div class="self-center">D</div>
         </div>
         <div class="flex h-full w-full flex-col justify-center">
-          <div class="self-center">B</div>
+          <div class="self-center">
+            <button
+              class="px-4 py-2 bg-blue-500 text-white rounded"
+              @click="timerStore.toggleTimer"
+            >
+              {{ timerStore.isRunning ? 'Stop' : 'Start' }}
+            </button>
+          </div>
         </div>
       </div>
     </div>

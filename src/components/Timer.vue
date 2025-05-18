@@ -1,8 +1,9 @@
 <script setup>
 import { useTimerStore } from '../stores/timerstore'
-import { onMounted } from 'vue'
+import { watch, ref } from 'vue'
 
 const timerStore = useTimerStore()
+const intervalId = ref(null)
 
 // Function to format time as MM:SS
 const formatTime = (seconds) => {
@@ -11,20 +12,25 @@ const formatTime = (seconds) => {
   return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
 };
 
-// Countdown function
-const startCountdown = () => {
-  const interval = setInterval(() => {
-    if (timerStore.roundTime > 0) {
-      timerStore.roundTime -= 1;
+watch(
+  () => timerStore.isRunning,
+  (newVal) => {
+    if (newVal) {
+      if (intervalId.value === null) {
+        intervalId.value = setInterval(() => {
+          if (timerStore.roundTime > 0) {
+            timerStore.roundTime -= 1;
+          }
+        }, 1000);
+      }
     } else {
-      clearInterval(interval);
+      if (intervalId.value !== null) {
+        clearInterval(intervalId.value);
+        intervalId.value = null;
+      }
     }
-  }, 1000);
-};
-
-onMounted(() => {
-  startCountdown();
-});
+  }
+)
 </script>
 
 <template>
