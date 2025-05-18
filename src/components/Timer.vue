@@ -23,9 +23,9 @@ const startCountdown = () => {
   }, 1000);
 };
 
-// Start the countdown when the component is mounted
+
 onMounted(() => {
-  startCountdown();
+
 });
 </script>
 
