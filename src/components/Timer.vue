@@ -18,8 +18,8 @@ watch(
     if (newVal) {
       if (intervalId.value === null) {
         intervalId.value = setInterval(() => {
-          if (timerStore.roundTime > 0) {
-            timerStore.roundTime -= 1;
+          if (timerStore.currentRoundTimeRemaining > 0) {
+            timerStore.currentRoundTimeRemaining -= 1;
           }
         }, 1000);
       }
@@ -35,7 +35,7 @@ watch(
 
 <template>
   <div class="m-auto flex justify-center text-8xl">
-    {{ formatTime(timerStore.roundTime) }}
+    {{ formatTime(timerStore.currentRoundTimeRemaining) }}
   </div>
 </template>
 
