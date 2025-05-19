@@ -1,6 +1,7 @@
 <script setup>
 import Timer from './components/Timer.vue';
 import { useTimerStore } from './stores/timerstore';
+import InputNumber from 'primevue/inputnumber'
 
 const timerStore = useTimerStore();
 </script>
@@ -38,10 +39,40 @@ const timerStore = useTimerStore();
     >
       <div class="m-auto flex h-full w-full justify-center">
         <div class="flex h-full w-full flex-col justify-center">
-          <div class="self-center">A</div>
-          <div class="self-center">B</div>
-          <div class="self-center">C</div>
-          <div class="self-center">D</div>
+          <div class="self-center">Round</div>
+          <div class="self-center">
+            <InputNumber
+              v-model="timerStore.roundTime"
+              suffix=" sec"
+              size="small"
+              :min="1"
+              :max="3600"
+              :readonly="timerStore.isRunning"
+              inputClass="text-center"
+              showButtons
+              buttonLayout="horizontal"
+              incrementButtonIcon="pi pi-plus"
+              decrementButtonIcon="pi pi-minus"
+              fluid
+            />
+          </div>
+          <div class="self-center">Rest</div>
+          <div class="self-center">
+            <InputNumber
+              v-model="timerStore.breakTime"
+              suffix=" sec"
+              size="small"
+              :min="0"
+              :max="3600"
+              :readonly="timerStore.isRunning"
+              inputClass="text-center"
+              showButtons
+              buttonLayout="horizontal"
+              incrementButtonIcon="pi pi-plus"
+              decrementButtonIcon="pi pi-minus"
+              fluid
+            />
+          </div>
         </div>
         <div class="flex h-full w-full flex-col justify-center">
           <div class="self-center">

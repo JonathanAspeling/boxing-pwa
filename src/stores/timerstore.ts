@@ -3,7 +3,7 @@ import { ref } from 'vue'
 
 export const useTimerStore = defineStore('timerstore', () => {
   const roundTime = ref(180)
-  const breakTime = ref(0)
+  const breakTime = ref(60)
   const isRunning = ref(false)
 
   function setRoundTime(seconds: number) {
