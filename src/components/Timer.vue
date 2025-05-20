@@ -1,9 +1,9 @@
 <script setup>
 import { useTimerStore } from '../stores/timerstore';
-import { watch, ref } from "vue";
+import { watch, ref } from 'vue';
 
-const timerStore = useTimerStore()
-const intervalId = ref(null)
+const timerStore = useTimerStore();
+const intervalId = ref(null);
 
 const formatTime = (seconds) => {
   const minutes = Math.floor(seconds / 60);
