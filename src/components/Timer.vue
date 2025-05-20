@@ -1,12 +1,14 @@
 <script setup>
 import { useTimerStore } from '../stores/timerstore';
-import { watch, ref } from 'vue';
+import { watch, ref     } from 'vue';
+
+
 
 const timerStore = useTimerStore();
 const intervalId = ref(null);
 
-const formatTime = (seconds) => {
-  const minutes = Math.floor(seconds / 60);
+const formatTime = (seconds) => {   
+  const minutes = Math.floor(     seconds / 60);
   const secs = seconds % 60;
   return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
 };
