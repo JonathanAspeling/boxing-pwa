@@ -1,4 +1,8 @@
 #!/bin/sh
 # Thanks Nik Spyrtos! https://github.com/nikspyratos/toybox/blob/main/.hooks/pre-commit
 
+# 
 npm run format
+
+# Stage any changes made by the formatter
+git add -u
