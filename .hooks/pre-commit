@@ -1,0 +1,4 @@
+#!/bin/sh
+# Thanks Nik Spyrtos! https://github.com/nikspyratos/toybox/blob/main/.hooks/pre-commit
+
+npm run format
