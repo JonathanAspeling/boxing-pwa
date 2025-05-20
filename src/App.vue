@@ -1,7 +1,7 @@
 <script setup>
 import Timer from './components/Timer.vue';
 import { useTimerStore } from './stores/timerstore';
-import InputNumber from 'primevue/inputnumber'
+import InputNumber from 'primevue/inputnumber';
 
 const timerStore = useTimerStore();
 </script>
@@ -42,6 +42,7 @@ const timerStore = useTimerStore();
           <div class="self-center">Round</div>
           <div class="self-center">
             <InputNumber
+              class="scale-90 py-2"
               v-model="timerStore.roundTime"
               suffix=" sec"
               size="small"
@@ -59,6 +60,7 @@ const timerStore = useTimerStore();
           <div class="self-center">Rest</div>
           <div class="self-center">
             <InputNumber
+              class="scale-90 py-2"
               v-model="timerStore.breakTime"
               suffix=" sec"
               size="small"
@@ -77,11 +79,19 @@ const timerStore = useTimerStore();
         <div class="flex h-full w-full flex-col justify-center">
           <div class="self-center">
             <button
-              class="hexagon-btn"
+              class="hexagon-btn scale-90"
               @click="timerStore.toggleTimer"
             >
-              <i v-if="timerStore.isRunning" class="pi pi-pause" style="color: #fff; font-size: 2.25rem;"></i>
-              <i v-else class="pi pi-play" style="color: #fff; font-size: 2.25rem;"></i>
+              <i
+                v-if="timerStore.isRunning"
+                class="pi pi-pause"
+                style="color: #fff; font-size: 2.25rem"
+              ></i>
+              <i
+                v-else
+                class="pi pi-play"
+                style="color: #fff; font-size: 2.25rem"
+              ></i>
             </button>
           </div>
         </div>

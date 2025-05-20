@@ -1,9 +1,9 @@
 <script setup>
-import { useTimerStore } from '../stores/timerstore'
-import { watch, ref } from 'vue'
+import { useTimerStore } from '../stores/timerstore';
+import { watch, ref } from 'vue';
 
-const timerStore = useTimerStore()
-const intervalId = ref(null)
+const timerStore = useTimerStore();
+const intervalId = ref(null);
 
 // Function to format time as MM:SS
 const formatTime = (seconds) => {
@@ -29,8 +29,8 @@ watch(
         intervalId.value = null;
       }
     }
-  }
-)
+  },
+);
 </script>
 
 <template>

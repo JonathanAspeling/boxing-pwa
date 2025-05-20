@@ -19,4 +19,3 @@ Boxing timer with some boxing specific settings, intervals, sounds etc for our b
 - `npm run preview` &mdash; Preview the production build locally.
 - `npm run format` &mdash; Format code using Prettier.
 - `npm run dev:network` &mdash; Start the dev server accessible on your local network.
-
