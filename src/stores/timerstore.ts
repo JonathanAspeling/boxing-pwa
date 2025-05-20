@@ -7,18 +7,30 @@ export const useTimerStore = defineStore('timerstore', () => {
   const isRunning = ref(false);
   const currentRoundTimeRemaining = ref(180);
   const currentBreakTimeRemaining = ref(60);
+  const timerMode = ref<'round' | 'rest'>('round');
+  const roundCount = ref(0);
 
   function toggleTimer() {
     isRunning.value = !isRunning.value;
   }
 
+  function resetTimers() {
+    currentRoundTimeRemaining.value = roundTime.value;
+    currentBreakTimeRemaining.value = breakTime.value;
+    timerMode.value = 'round';
+  }
+
   // Watch for changes to roundTime and breakTime
   watch(roundTime, (newValue) => {
-    currentRoundTimeRemaining.value = newValue;
+    if (!isRunning.value) {
+      currentRoundTimeRemaining.value = newValue;
+    }
   });
 
   watch(breakTime, (newValue) => {
-    currentBreakTimeRemaining.value = newValue;
+    if (!isRunning.value) {
+      currentBreakTimeRemaining.value = newValue;
+    }
   });
 
   return {
@@ -28,5 +40,8 @@ export const useTimerStore = defineStore('timerstore', () => {
     toggleTimer,
     currentRoundTimeRemaining,
     currentBreakTimeRemaining,
+    timerMode,
+    roundCount,
+    resetTimers,
   };
 });

@@ -5,7 +5,6 @@ import { watch, ref } from 'vue';
 const timerStore = useTimerStore();
 const intervalId = ref(null);
 
-// Function to format time as MM:SS
 const formatTime = (seconds) => {
   const minutes = Math.floor(seconds / 60);
   const secs = seconds % 60;
@@ -18,8 +17,23 @@ watch(
     if (newVal) {
       if (intervalId.value === null) {
         intervalId.value = setInterval(() => {
-          if (timerStore.currentRoundTimeRemaining > 0) {
-            timerStore.currentRoundTimeRemaining -= 1;
+          if (timerStore.timerMode === 'round') {
+            if (timerStore.currentRoundTimeRemaining > 0) {
+              timerStore.currentRoundTimeRemaining -= 1;
+            }
+            if (timerStore.currentRoundTimeRemaining === 0) {
+              timerStore.timerMode = 'rest';
+              timerStore.roundCount += 1;
+              timerStore.currentBreakTimeRemaining = timerStore.breakTime;
+            }
+          } else if (timerStore.timerMode === 'rest') {
+            if (timerStore.currentBreakTimeRemaining > 0) {
+              timerStore.currentBreakTimeRemaining -= 1;
+            }
+            if (timerStore.currentBreakTimeRemaining === 0) {
+              timerStore.timerMode = 'round';
+              timerStore.currentRoundTimeRemaining = timerStore.roundTime;
+            }
           }
         }, 1000);
       }
@@ -31,11 +45,22 @@ watch(
     }
   },
 );
+
 </script>
 
 <template>
-  <div class="m-auto flex justify-center text-8xl">
-    {{ formatTime(timerStore.currentRoundTimeRemaining) }}
+  <div class="m-auto flex flex-col items-center justify-center text-8xl">
+    <div>
+      {{ timerStore.timerMode === 'round'
+        ? formatTime(timerStore.currentRoundTimeRemaining)
+        : formatTime(timerStore.currentBreakTimeRemaining)
+      }}
+    </div>
+    <div class="text-2xl mt-4">
+      <span v-if="timerStore.timerMode === 'round'">Round</span>
+      <span v-else>Rest</span>
+      <span class="ml-4">Rounds: {{ timerStore.roundCount }}</span>
+    </div>
   </div>
 </template>
 
