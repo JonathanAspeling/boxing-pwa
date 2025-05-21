@@ -28,7 +28,10 @@ const timerStore = useTimerStore();
       class="flex flex-10/12 justify-center border-2 p-2 text-2xl"
     >
       <div class="m-auto flex-col">
-        <div>A</div>
+        <div>
+          <span v-if="timerStore.timerMode === 'round'">Round</span>
+          <span v-else>Rest</span>
+        </div>
         <div>B</div>
         <div>C</div>
       </div>

@@ -57,8 +57,6 @@ watch(
       }}
     </div>
     <div class="mt-4 text-2xl">
-      <span v-if="timerStore.timerMode === 'round'">Round</span>
-      <span v-else>Rest</span>
       <span class="ml-4">Rounds: {{ timerStore.roundCount }}</span>
     </div>
   </div>
