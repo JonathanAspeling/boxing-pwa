@@ -32,7 +32,9 @@ const timerStore = useTimerStore();
           <span v-if="timerStore.timerMode === 'round'">Round</span>
           <span v-else>Rest</span>
         </div>
-        <div>B</div>
+        <div>
+          <span>{{ timerStore.roundCount }}</span>
+        </div>
         <div>C</div>
       </div>
     </div>

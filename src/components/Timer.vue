@@ -56,9 +56,6 @@ watch(
           : formatTime(timerStore.currentBreakTimeRemaining)
       }}
     </div>
-    <div class="mt-4 text-2xl">
-      <span class="ml-4">Rounds: {{ timerStore.roundCount }}</span>
-    </div>
   </div>
 </template>
 
