@@ -4,6 +4,10 @@ import { watch, ref } from 'vue';
 
 const timerStore = useTimerStore();
 const intervalId = ref(null);
+// Use require to ensure correct asset path resolution in Vite/Vue
+const audio = new Audio(
+  import.meta.env.BASE_URL + '/assets/sounds/boxing-bell.mp3',
+);
 
 const formatTime = (seconds) => {
   const minutes = Math.floor(seconds / 60);
@@ -22,6 +26,9 @@ watch(
               timerStore.currentRoundTimeRemaining -= 1;
             }
             if (timerStore.currentRoundTimeRemaining === 0) {
+              // Play sound when round ends
+              audio.currentTime = 0;
+              audio.play();
               timerStore.timerMode = 'rest';
               timerStore.roundCount += 1;
               timerStore.currentBreakTimeRemaining = timerStore.breakTime;
@@ -31,6 +38,9 @@ watch(
               timerStore.currentBreakTimeRemaining -= 1;
             }
             if (timerStore.currentBreakTimeRemaining === 0) {
+              // Play sound when rest ends
+              audio.currentTime = 0;
+              audio.play();
               timerStore.timerMode = 'round';
               timerStore.currentRoundTimeRemaining = timerStore.roundTime;
             }

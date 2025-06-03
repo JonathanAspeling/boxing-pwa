@@ -7,7 +7,7 @@ export const useTimerStore = defineStore('timerstore', () => {
   const isRunning = ref(false);
   const currentRoundTimeRemaining = ref(180);
   const currentBreakTimeRemaining = ref(60);
-  const timerMode = (ref < 'round') | ('rest' > 'round');
+  const timerMode = ref('round');
   const roundCount = ref(0);
   const totalRounds = ref(10);
 
