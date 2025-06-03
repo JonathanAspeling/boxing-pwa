@@ -9,6 +9,7 @@ export const useTimerStore = defineStore('timerstore', () => {
   const currentBreakTimeRemaining = ref(60);
   const timerMode = (ref < 'round') | ('rest' > 'round');
   const roundCount = ref(0);
+  const totalRounds = ref(10);
 
   function toggleTimer() {
     isRunning.value = !isRunning.value;
@@ -43,5 +44,6 @@ export const useTimerStore = defineStore('timerstore', () => {
     timerMode,
     roundCount,
     resetTimers,
+    totalRounds,
   };
 });

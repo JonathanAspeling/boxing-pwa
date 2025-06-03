@@ -26,7 +26,7 @@ const timerStore = useTimerStore();
         <div class="text-center">
           <span>{{ timerStore.roundCount }}</span>
         </div>
-        <div class="text-center">of X(TBC)</div>
+        <div class="text-center">of {{ timerStore.totalRounds }}</div>
       </div>
     </div>
     <div
