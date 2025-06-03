@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-full flex-col items-center justify-center">
+  <div class="flex h-full flex-col items-center justify-center border-2">
     <h1 class="mb-4 text-3xl font-bold">Settings Page</h1>
     <!-- Settings content goes here -->
   </div>
