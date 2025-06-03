@@ -10,8 +10,15 @@ Boxing timer with some boxing specific settings, intervals, sounds etc for our b
 ## Installation
 
 1. Clone the repo
-2. Run `npm install`
-3. Run `npm run dev` to start the development server
+2. - Add hook to your local git pre-commit to run the code formatter:
+
+```sh
+cp .hooks/pre-commit .git/hooks/pre-commit
+chmod +x .git/hooks/pre-commit
+```
+
+3. Run `npm install`
+4. Run `npm run dev` to start the development server
 
 ## Additional npm Commands
 
