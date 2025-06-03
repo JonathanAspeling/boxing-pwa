@@ -1,5 +1,5 @@
 <script setup>
-import Timer from './components/Timer.vue';
+import TimerWidget from './components/TimerWidget.vue';
 import { useTimerStore } from './stores/timerstore';
 import InputNumber from 'primevue/inputnumber';
 
@@ -21,21 +21,21 @@ const timerStore = useTimerStore();
       id="main-timer"
       class="flex flex-10/12 justify-center border-2 p-2 text-2xl"
     >
-      <Timer />
+      <TimerWidget />
     </div>
     <div
       id="round-indicator"
       class="flex flex-10/12 justify-center border-2 p-2 text-2xl"
     >
       <div class="m-auto flex-col">
-        <div>
+        <div class="text-center">
           <span v-if="timerStore.timerMode === 'round'">Round</span>
           <span v-else>Rest</span>
         </div>
-        <div>
+        <div class="text-center">
           <span>{{ timerStore.roundCount }}</span>
         </div>
-        <div>C</div>
+        <div class="text-center">of X(TBC)</div>
       </div>
     </div>
     <div
