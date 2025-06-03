@@ -4,7 +4,6 @@ import { watch, ref } from 'vue';
 
 const timerStore = useTimerStore();
 const intervalId = ref(null);
-// Use require to ensure correct asset path resolution in Vite/Vue
 const audio = new Audio(
   import.meta.env.BASE_URL + '/assets/sounds/boxing-bell.mp3',
 );
@@ -17,8 +16,18 @@ const formatTime = (seconds) => {
 
 watch(
   () => timerStore.isRunning,
-  (newVal) => {
+  (newVal, oldVal) => {
     if (newVal) {
+      // Play bell sound and increment round counter when timer starts for the first time (round 1)
+      if (
+        timerStore.timerMode === 'round' &&
+        timerStore.roundCount === 0 &&
+        timerStore.currentRoundTimeRemaining === timerStore.roundTime
+      ) {
+        audio.currentTime = 0;
+        audio.play();
+        timerStore.roundCount = 1;
+      }
       if (intervalId.value === null) {
         intervalId.value = setInterval(() => {
           if (timerStore.timerMode === 'round') {
@@ -26,7 +35,16 @@ watch(
               timerStore.currentRoundTimeRemaining -= 1;
             }
             if (timerStore.currentRoundTimeRemaining === 0) {
-              // Play sound when round ends
+              // If last round just finished, play bell and stop timer
+              if (timerStore.roundCount >= timerStore.totalRounds) {
+                audio.currentTime = 0;
+                audio.play();
+                timerStore.isRunning = false;
+                clearInterval(intervalId.value);
+                intervalId.value = null;
+                return;
+              }
+              // Play sound when round ends (not last round)
               audio.currentTime = 0;
               audio.play();
               timerStore.timerMode = 'rest';
