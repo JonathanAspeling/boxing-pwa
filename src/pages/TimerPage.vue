@@ -130,7 +130,8 @@ const cancelReset = () => {
 
     <!-- Controls -->
     <div class="flex flex-col items-center">
-      <div class="mb-3 flex items-center justify-center gap-6">
+      <div class="mb-3 flex items-center justify-center gap-4 sm:gap-6">
+        <!-- Reset button on left -->
         <button
           class="reset-btn"
           @click="handleResetPress"
@@ -141,17 +142,24 @@ const cancelReset = () => {
           title="Reset Timer"
           aria-label="Reset Timer"
         >
-          <i class="pi pi-refresh"></i>
+          <i class="pi pi-refresh h-6 w-6 sm:h-7 sm:w-7"></i>
         </button>
 
+        <!-- Play/Pause button centered -->
         <button
           class="play-btn"
           @click="timerStore.toggleTimer"
           :aria-label="timerStore.isRunning ? 'Pause Timer' : 'Start Timer'"
         >
-          <i v-if="timerStore.isRunning" class="pi pi-pause"></i>
-          <i v-else class="pi pi-play"></i>
+          <i
+            v-if="timerStore.isRunning"
+            class="pi pi-pause h-9 w-9 sm:h-10 sm:w-10"
+          ></i>
+          <i v-else class="pi pi-play h-9 w-9 sm:h-10 sm:w-10"></i>
         </button>
+
+        <!-- Empty spacer div for symmetry - same width as reset button -->
+        <div class="w-[68px] sm:w-[76px]"></div>
       </div>
 
       <!-- Hint text -->
@@ -225,58 +233,58 @@ const cancelReset = () => {
 
 .reset-btn {
   padding: 1.25rem;
-  background: rgba(113, 113, 122, 0.8);
-  color: #ffffff;
+  background: rgba(39, 39, 42, 1);
+  color: rgba(161, 161, 170, 1);
   display: flex;
   align-items: center;
   justify-content: center;
   border: none;
-  border-radius: 12px;
+  border-radius: 1rem;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  font-size: 1.25rem;
   user-select: none;
   transform: scale(1);
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 .reset-btn:hover {
-  background: rgba(161, 161, 170, 0.9);
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  background: rgba(63, 63, 70, 1);
+  transform: scale(1.05);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 }
 
 .reset-btn:active {
-  background: rgba(82, 82, 91, 0.9);
-  transform: translateY(0) scale(0.95);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  background: rgba(24, 24, 27, 1);
+  transform: scale(0.95);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
 .play-btn {
   padding: 1.75rem;
-  background: #dc2626;
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
   color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   border: none;
-  border-radius: 20px;
+  border-radius: 1.5rem;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   font-size: 1.5rem;
-  box-shadow: 0 4px 14px 0 rgba(220, 38, 38, 0.4);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   user-select: none;
   transform: scale(1);
 }
 
 .play-btn:hover {
-  background: #b91c1c;
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 10px 30px 0 rgba(220, 38, 38, 0.5);
+  transform: scale(1.05);
+  box-shadow: 0 25px 50px -12px rgba(220, 38, 38, 0.5);
 }
 
 .play-btn:active {
-  background: #991b1b;
-  transform: translateY(0) scale(0.95);
+  transform: scale(0.95);
   box-shadow: 0 2px 8px 0 rgba(220, 38, 38, 0.4);
 }
 
