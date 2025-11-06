@@ -33,24 +33,33 @@ const timerStore = useTimerStore();
       class="flex flex-10/12 justify-center border-2 p-2 text-2xl"
     >
       <div class="m-auto flex h-full w-full justify-center">
-        <div class="flex h-full w-full flex-col justify-center">
-          <div class="self-center">
-            <button
-              class="hexagon-btn scale-90"
-              @click="timerStore.toggleTimer"
-            >
-              <i
-                v-if="timerStore.isRunning"
-                class="pi pi-pause"
-                style="color: #fff; font-size: 2.25rem"
-              ></i>
-              <i
-                v-else
-                class="pi pi-play"
-                style="color: #fff; font-size: 2.25rem"
-              ></i>
-            </button>
-          </div>
+        <div
+          class="flex h-full w-full flex-row items-center justify-center gap-8"
+        >
+          <button
+            class="reset-btn"
+            @click="timerStore.resetTimers"
+            title="Reset Timer"
+            aria-label="Reset Timer"
+          >
+            <i class="pi pi-refresh" style="color: #fff; font-size: 1.5rem"></i>
+          </button>
+          <button
+            @click="timerStore.toggleTimer"
+            :aria-label="timerStore.isRunning ? 'Pause Timer' : 'Start Timer'"
+            @click="timerStore.toggleTimer"
+          >
+            <i
+              v-if="timerStore.isRunning"
+              class="pi pi-pause"
+              style="color: #fff; font-size: 2.25rem"
+            ></i>
+            <i
+              v-else
+              class="pi pi-play"
+              style="color: #fff; font-size: 2.25rem"
+            ></i>
+          </button>
         </div>
       </div>
     </div>
@@ -83,5 +92,27 @@ const timerStore = useTimerStore();
 }
 .hexagon-btn:active {
   background: #222;
+}
+
+.reset-btn {
+  width: 80px;
+  height: 80px;
+  background: #666;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.reset-btn:hover {
+  background: #888;
+}
+
+.reset-btn:active {
+  background: #444;
 }
 </style>

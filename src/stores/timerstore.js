@@ -16,9 +16,11 @@ export const useTimerStore = defineStore('timerstore', () => {
   }
 
   function resetTimers() {
+    isRunning.value = false;
     currentRoundTimeRemaining.value = roundTime.value;
     currentBreakTimeRemaining.value = breakTime.value;
     timerMode.value = 'round';
+    roundCount.value = 0;
   }
 
   // Watch for changes to roundTime and breakTime
