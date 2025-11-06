@@ -10,23 +10,29 @@ const togglePage = () => {
 </script>
 
 <template>
-  <div id="app" class="flex h-screen flex-col">
+  <div
+    id="app"
+    class="flex h-screen flex-col bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-950"
+  >
+    <!-- Header -->
     <div
-      id="top-navbar"
-      class="flex flex-1/12 justify-center border-2 p-2 text-2xl"
+      class="flex items-center justify-between bg-zinc-800 px-4 py-3 sm:px-6"
     >
-      <div class="flex flex-4/12 justify-center">A</div>
-      <div class="flex flex-4/12 justify-center">B</div>
-      <div class="flex flex-4/12 justify-center">
-        <button
-          @click="togglePage"
-          class="h-fit rounded bg-gray-800 px-4 py-2 text-sm text-white transition hover:bg-gray-700"
-        >
-          {{ showSettings ? 'Timer' : 'Settings' }}
-        </button>
-      </div>
+      <h1 class="text-lg font-medium text-white">Boxing Timer</h1>
+      <button
+        @click="togglePage"
+        class="flex h-8 w-8 items-center justify-center gap-2 rounded-md text-zinc-300 transition hover:bg-zinc-700 hover:text-white sm:gap-3"
+        :aria-label="showSettings ? 'Go to Timer' : 'Go to Settings'"
+      >
+        <i class="pi pi-cog text-lg"></i>
+        <span class="hidden text-sm sm:inline">{{
+          showSettings ? 'Timer' : 'Settings'
+        }}</span>
+      </button>
     </div>
-    <div class="flex-11/12">
+
+    <!-- Main Content -->
+    <div class="flex-1 overflow-hidden">
       <TimerPage v-if="!showSettings" />
       <SettingsPage v-else />
     </div>

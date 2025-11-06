@@ -76,8 +76,8 @@ watch(
 </script>
 
 <template>
-  <div class="m-auto flex flex-col items-center justify-center text-8xl">
-    <div>
+  <div class="flex flex-col items-center justify-center">
+    <div class="timer-display text-center text-white tabular-nums">
       {{
         timerStore.timerMode === 'round'
           ? formatTime(timerStore.currentRoundTimeRemaining)
@@ -88,5 +88,16 @@ watch(
 </template>
 
 <style scoped>
-/* Blank canvas */
+.timer-display {
+  font-size: 4.5rem;
+  font-weight: 300;
+  letter-spacing: -0.05em;
+  font-family: 'SF Mono', 'Monaco', 'Menlo', 'Consolas', monospace;
+}
+
+@media (min-width: 640px) {
+  .timer-display {
+    font-size: 6rem;
+  }
+}
 </style>

@@ -1,8 +1,10 @@
 <template>
-  <div class="flex h-full flex-col items-center justify-center border-2">
-    <h1 class="mb-4 text-3xl font-bold">Settings Page</h1>
-    <div class="mb-4 flex flex-col items-center">
-      <label for="total-rounds" class="mb-2 font-semibold">Total Rounds</label>
+  <div class="flex h-full flex-col px-4 py-6">
+    <h1 class="mb-6 text-center text-2xl font-bold text-white">Settings</h1>
+    <div class="mb-6 flex flex-col items-center">
+      <label for="total-rounds" class="mb-2 font-semibold text-zinc-300"
+        >Total Rounds</label
+      >
       <InputNumber
         id="total-rounds"
         v-model="timerStore.totalRounds"
@@ -15,8 +17,8 @@
         inputClass="text-center"
       />
     </div>
-    <div class="mb-4 flex flex-col items-center">
-      <label for="round-time" class="mb-2 font-semibold"
+    <div class="mb-6 flex flex-col items-center">
+      <label for="round-time" class="mb-2 font-semibold text-zinc-300"
         >Round Time (sec)</label
       >
       <InputNumber
@@ -34,8 +36,10 @@
         fluid
       />
     </div>
-    <div class="mb-4 flex flex-col items-center">
-      <label for="break-time" class="mb-2 font-semibold">Rest Time (sec)</label>
+    <div class="mb-6 flex flex-col items-center">
+      <label for="break-time" class="mb-2 font-semibold text-zinc-300"
+        >Rest Time (sec)</label
+      >
       <InputNumber
         id="break-time"
         v-model="timerStore.breakTime"
