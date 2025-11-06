@@ -11,17 +11,22 @@ export default defineConfig({
     VitePWA({
       registerType: 'prompt',
       injectRegister: false,
-      scope: '/boxing-pwa/',
       pwaAssets: {
         disabled: false,
         config: true,
       },
 
       manifest: {
-        name: 'boxing-pwa',
-        short_name: 'boxing-pwa',
-        description: 'A boxing timer App',
-        theme_color: '#ffffff',
+        name: 'Boxing Timer',
+        short_name: 'Boxing Timer',
+        description: 'A professional boxing timer app for training sessions',
+        theme_color: '#18181b', // zinc-900 to match app theme
+        background_color: '#09090b', // zinc-950 to match app background
+        display: 'fullscreen', // Hide status bar and browser UI
+        orientation: 'portrait', // Lock to portrait mode
+        start_url: '/',
+        scope: '/',
+        categories: ['sports', 'fitness', 'health'],
       },
 
       workbox: {
