@@ -1,11 +1,53 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import TimerWidget from '../components/TimerWidget.vue';
 import { useTimerStore } from '../stores/timerstore';
 
 const timerStore = useTimerStore();
 const showResetConfirmation = ref(false);
 const resetPressTimer = ref(null);
+
+// Computed property for status state and colors
+const statusState = computed(() => {
+  if (
+    timerStore.roundCount >= timerStore.totalRounds &&
+    !timerStore.isRunning
+  ) {
+    return 'complete';
+  } else if (timerStore.isRunning) {
+    return timerStore.timerMode === 'round' ? 'round' : 'rest';
+  } else {
+    return 'ready';
+  }
+});
+
+const getStateColor = computed(() => {
+  switch (statusState.value) {
+    case 'round':
+      return 'from-red-600 to-red-700';
+    case 'rest':
+      return 'from-emerald-600 to-emerald-700';
+    case 'complete':
+      return 'from-amber-600 to-amber-700';
+    case 'ready':
+    default:
+      return 'from-zinc-700 to-zinc-800';
+  }
+});
+
+const getStatusLabel = computed(() => {
+  switch (statusState.value) {
+    case 'round':
+      return 'ROUND IN PROGRESS';
+    case 'rest':
+      return 'REST IN PROGRESS';
+    case 'complete':
+      return 'FIGHT COMPLETE';
+    case 'ready':
+    default:
+      return 'READY TO START';
+  }
+});
 
 const handleResetPress = () => {
   // Quick tap - reset current timer only
@@ -39,20 +81,28 @@ const cancelReset = () => {
 <template>
   <div class="flex h-full flex-col px-4 py-6">
     <!-- Status Bar -->
-    <div
-      class="mb-6 rounded-xl bg-gradient-to-r from-red-600 to-red-500 p-3 text-center shadow-2xl sm:rounded-2xl sm:p-4"
-    >
-      <div class="text-sm font-medium text-white sm:text-base">
-        {{
-          timerStore.timerMode === 'round'
-            ? 'ROUND IN PROGRESS'
-            : 'REST IN PROGRESS'
-        }}
+    <transition name="status-bar" mode="out-in" appear>
+      <div
+        :key="statusState"
+        :class="[
+          'mb-6 rounded-xl bg-gradient-to-r p-3 text-center shadow-2xl sm:mb-8 sm:rounded-2xl sm:p-4',
+          getStateColor,
+        ]"
+      >
+        <div class="mb-1 text-sm text-white opacity-90 sm:text-base">
+          {{ getStatusLabel }}
+        </div>
+        <div class="flex items-center justify-center gap-3 text-white sm:gap-4">
+          <span class="text-lg sm:text-xl"
+            >Round {{ timerStore.roundCount || 1 }}</span
+          >
+          <div class="h-5 w-1 rounded-full bg-white/30 sm:h-6"></div>
+          <span class="text-lg sm:text-xl"
+            >of {{ timerStore.totalRounds }}</span
+          >
+        </div>
       </div>
-      <div class="text-lg font-semibold text-white sm:text-xl">
-        Round {{ timerStore.roundCount || 1 }} | of {{ timerStore.totalRounds }}
-      </div>
-    </div>
+    </transition>
 
     <!-- Timer Display -->
     <div class="relative mb-8 flex-1">
@@ -145,6 +195,22 @@ const cancelReset = () => {
 </template>
 
 <style scoped>
+/* Status bar transition animations */
+.status-bar-enter-active,
+.status-bar-leave-active {
+  transition: all 0.3s ease;
+}
+
+.status-bar-enter-from {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+.status-bar-leave-to {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
 .timer-glow-red {
   box-shadow:
     0 0 30px rgba(220, 38, 38, 0.3),
