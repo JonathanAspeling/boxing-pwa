@@ -1,6 +1,6 @@
 <script setup>
 import { useTimerStore } from '../stores/timerstore';
-import { watch, ref } from 'vue';
+import { watch, ref, onUnmounted } from 'vue';
 
 const timerStore = useTimerStore();
 const intervalId = ref(null);
@@ -13,6 +13,19 @@ const formatTime = (seconds) => {
   const secs = seconds % 60;
   return `${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
 };
+
+// Cleanup function to clear interval safely
+const clearTimerInterval = () => {
+  if (intervalId.value !== null) {
+    clearInterval(intervalId.value);
+    intervalId.value = null;
+  }
+};
+
+// Clean up interval when component unmounts
+onUnmounted(() => {
+  clearTimerInterval();
+});
 
 watch(
   () => timerStore.isRunning,
@@ -28,50 +41,48 @@ watch(
         audio.play();
         timerStore.roundCount = 1;
       }
-      if (intervalId.value === null) {
-        intervalId.value = setInterval(() => {
-          if (timerStore.timerMode === 'round') {
-            if (timerStore.currentRoundTimeRemaining > 0) {
-              timerStore.currentRoundTimeRemaining -= 1;
-            }
-            if (timerStore.currentRoundTimeRemaining === 0) {
-              // If last round just finished, play bell and stop timer
-              if (timerStore.roundCount >= timerStore.totalRounds) {
-                audio.currentTime = 0;
-                audio.play();
-                timerStore.isRunning = false;
-                // Save completed workout
-                timerStore.saveCompletedWorkout();
-                clearInterval(intervalId.value);
-                intervalId.value = null;
-                return;
-              }
-              // Play sound when round ends (not last round)
-              audio.currentTime = 0;
-              audio.play();
-              timerStore.timerMode = 'rest';
-              timerStore.roundCount += 1;
-              timerStore.currentBreakTimeRemaining = timerStore.breakTime;
-            }
-          } else if (timerStore.timerMode === 'rest') {
-            if (timerStore.currentBreakTimeRemaining > 0) {
-              timerStore.currentBreakTimeRemaining -= 1;
-            }
-            if (timerStore.currentBreakTimeRemaining === 0) {
-              // Play sound when rest ends
-              audio.currentTime = 0;
-              audio.play();
-              timerStore.timerMode = 'round';
-              timerStore.currentRoundTimeRemaining = timerStore.roundTime;
-            }
+
+      // Always clear any existing interval before creating a new one
+      clearTimerInterval();
+
+      // Create new interval only if none exists
+      intervalId.value = setInterval(() => {
+        if (timerStore.timerMode === 'round') {
+          if (timerStore.currentRoundTimeRemaining > 0) {
+            timerStore.currentRoundTimeRemaining -= 1;
           }
-        }, 1000);
-      }
+          if (timerStore.currentRoundTimeRemaining === 0) {
+            // If last round just finished, play bell and stop timer
+            if (timerStore.roundCount >= timerStore.totalRounds) {
+              audio.currentTime = 0;
+              audio.play();
+              timerStore.isRunning = false;
+              clearTimerInterval();
+              return;
+            }
+            // Play sound when round ends (not last round)
+            audio.currentTime = 0;
+            audio.play();
+            timerStore.timerMode = 'rest';
+            timerStore.roundCount += 1;
+            timerStore.currentBreakTimeRemaining = timerStore.breakTime;
+          }
+        } else if (timerStore.timerMode === 'rest') {
+          if (timerStore.currentBreakTimeRemaining > 0) {
+            timerStore.currentBreakTimeRemaining -= 1;
+          }
+          if (timerStore.currentBreakTimeRemaining === 0) {
+            // Play sound when rest ends
+            audio.currentTime = 0;
+            audio.play();
+            timerStore.timerMode = 'round';
+            timerStore.currentRoundTimeRemaining = timerStore.roundTime;
+          }
+        }
+      }, 1000);
     } else {
-      if (intervalId.value !== null) {
-        clearInterval(intervalId.value);
-        intervalId.value = null;
-      }
+      // Timer stopped - clear interval
+      clearTimerInterval();
     }
   },
 );

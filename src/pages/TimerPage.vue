@@ -53,10 +53,6 @@ const getStatusLabel = computed(() => {
 
 const handleResetPress = () => {
   // Quick tap - reset current timer only
-  // Save incomplete workout if user manually resets
-  if (timerStore.currentWorkoutStart && timerStore.roundCount > 0) {
-    timerStore.saveCompletedWorkout();
-  }
   timerStore.resetTimers();
 };
 
@@ -74,10 +70,6 @@ const handleResetMouseUp = () => {
 };
 
 const confirmFullReset = () => {
-  // Save incomplete workout if user manually resets all
-  if (timerStore.currentWorkoutStart && timerStore.roundCount > 0) {
-    timerStore.saveCompletedWorkout();
-  }
   timerStore.resetTimers();
   timerStore.roundCount = 0;
   showResetConfirmation.value = false;
