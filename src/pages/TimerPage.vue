@@ -2,6 +2,8 @@
 import { ref, computed } from 'vue';
 import TimerWidget from '../components/TimerWidget.vue';
 import { useTimerStore } from '../stores/timerstore';
+import PlayIcon from '../components/icons/PlayIcon.vue';
+import PauseIcon from '../components/icons/PauseIcon.vue';
 
 const timerStore = useTimerStore();
 const showResetConfirmation = ref(false);
@@ -51,6 +53,10 @@ const getStatusLabel = computed(() => {
 
 const handleResetPress = () => {
   // Quick tap - reset current timer only
+  // Save incomplete workout if user manually resets
+  if (timerStore.currentWorkoutStart && timerStore.roundCount > 0) {
+    timerStore.saveCompletedWorkout();
+  }
   timerStore.resetTimers();
 };
 
@@ -68,6 +74,10 @@ const handleResetMouseUp = () => {
 };
 
 const confirmFullReset = () => {
+  // Save incomplete workout if user manually resets all
+  if (timerStore.currentWorkoutStart && timerStore.roundCount > 0) {
+    timerStore.saveCompletedWorkout();
+  }
   timerStore.resetTimers();
   timerStore.roundCount = 0;
   showResetConfirmation.value = false;
@@ -151,11 +161,11 @@ const cancelReset = () => {
           @click="timerStore.toggleTimer"
           :aria-label="timerStore.isRunning ? 'Pause Timer' : 'Start Timer'"
         >
-          <i
+          <PauseIcon
             v-if="timerStore.isRunning"
-            class="pi pi-pause h-9 w-9 sm:h-10 sm:w-10"
-          ></i>
-          <i v-else class="pi pi-play h-9 w-9 sm:h-10 sm:w-10"></i>
+            class-name="h-9 w-9 sm:h-10 sm:w-10"
+          />
+          <PlayIcon v-else class-name="h-9 w-9 sm:h-10 sm:w-10" />
         </button>
 
         <!-- Empty spacer div for symmetry - same width as reset button -->

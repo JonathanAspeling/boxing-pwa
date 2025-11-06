@@ -40,6 +40,8 @@ watch(
                 audio.currentTime = 0;
                 audio.play();
                 timerStore.isRunning = false;
+                // Save completed workout
+                timerStore.saveCompletedWorkout();
                 clearInterval(intervalId.value);
                 intervalId.value = null;
                 return;
